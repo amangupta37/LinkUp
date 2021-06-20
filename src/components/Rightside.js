@@ -35,12 +35,6 @@ const Rightside = (props) => {
           <img src="/images/right-icon.svg" alt="" />
         </Recommendation>
       </FollowCard>
-      <BannerCard>
-        <img
-          src="https://static-exp1.licdn.com/scds/common/u/images/promo/ads/li_evergreen_jobs_ad_300x250_v1.jpg"
-          alt=""
-        />
-      </BannerCard>
     </Container>
   );
 };
@@ -121,13 +115,6 @@ const Recommendation = styled.a`
   display: flex;
   align-items: center;
   font-size: 14px;
-`;
-
-const BannerCard = styled(FollowCard)`
-  img {
-    width: 100%;
-    height: 100%;
-  }
 `;
 
 export default Rightside;
