@@ -1,44 +1,59 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 
 import { Image } from "../Icons/Image";
 import { Video } from "../Icons/Video";
 import { Article } from "../Icons/Article";
 import { Event } from "../Icons/Event";
+import Writepost from "./Writepost";
+
 const Addpost = () => {
+  const [showPostpopup, setshowPostpopup] = useState(false);
+  const WritePost = () => {
+    setshowPostpopup(true);
+  };
+
   return (
-    <Container>
-      <FormContainer>
-        <UserContainer>
-          <Profile>
-            <img
-              src="https://www.fakepersongenerator.com/Face/female/female20141023841555267.jpg"
-              alt="user-profile"
-            />
-          </Profile>
-        </UserContainer>
-        <InputContainer>
-          <InputBox>
-            <span>Start a Post</span>
-          </InputBox>
-        </InputContainer>
-      </FormContainer>
-      <MediaContainer>
-        <Icon>
-          <Image /> <p>Images</p>
-        </Icon>
-        <Icon>
-          <Video />
-          <p>Video</p>
-        </Icon>
-        <Icon>
-          <Event /> <p>Event</p>
-        </Icon>
-        <Icon>
-          <Article /> <p>Article</p>
-        </Icon>
-      </MediaContainer>
-    </Container>
+    <>
+      {showPostpopup ? (
+        <Postpopup>
+          <Writepost discardPost={setshowPostpopup} />
+        </Postpopup>
+      ) : (
+        <Container>
+          <FormContainer>
+            <UserContainer>
+              <Profile>
+                <img
+                  src="https://www.fakepersongenerator.com/Face/female/female20141023841555267.jpg"
+                  alt="user-profile"
+                />
+              </Profile>
+            </UserContainer>
+            <InputContainer>
+              <InputBox onClick={WritePost}>
+                <span>Start a Post</span>
+              </InputBox>
+            </InputContainer>
+          </FormContainer>
+          <MediaContainer>
+            <Icon>
+              <Image /> <p>Images</p>
+            </Icon>
+            <Icon>
+              <Video />
+              <p>Video</p>
+            </Icon>
+            <Icon>
+              <Event /> <p>Event</p>
+            </Icon>
+            <Icon>
+              <Article /> <p>Article</p>
+            </Icon>
+          </MediaContainer>
+        </Container>
+      )}
+    </>
   );
 };
 
@@ -50,7 +65,7 @@ const Container = styled.div`
   height: 150px;
   // grid-area: main;
   display: grid;
-
+  z-index: 100;
   grid-template-rows: 90px 1fr;
   @media only screen and (max-width: 600px) {
     width: 100%;
@@ -138,4 +153,16 @@ const Icon = styled.div`
     padding-left: 0;
     padding-top: 0;
   }
+`;
+const Postpopup = styled.div`
+  width: 100%;
+  height: 100vh;
+
+  position: absolute;
+  background: rgba(0, 0, 0, 0.8);
+  top: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 2000;
+  color: red;
 `;
