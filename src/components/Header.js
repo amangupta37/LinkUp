@@ -2,7 +2,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import Icon from "../Icons/mlogo.png";
-
 const Header = (props) => {
   return (
     <Container>
@@ -84,7 +83,7 @@ const Header = (props) => {
 };
 
 const Container = styled.div`
-  background-color: white;
+  background-color: #ffff;
 
   border-bottom: 1px solid rgba(0, 0, 0, 0.08);
   left: 0;
@@ -108,7 +107,7 @@ const Logo = styled.span`
   margin-right: 8px;
   font-size: 0px;
   img {
-    width: 65px;
+    width: 45px;
   }
 `;
 
