@@ -157,9 +157,7 @@ const Icon = styled.div`
 const Postpopup = styled.div`
   width: 100%;
   height: 100vh;
-
   position: absolute;
-  background: rgba(0, 0, 0, 0.8);
   top: 0;
   bottom: 0;
   right: 0;
