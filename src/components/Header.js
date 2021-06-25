@@ -1,18 +1,16 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import styled from "styled-components";
 import Icon from "../Icons/mlogo.png";
 const Header = (props) => {
   return (
     <Container>
       <Content>
-        <Link to="/">
-          <Logo>
-            <a href="/home">
-              <img src={Icon} alt="logo" />
-            </a>
-          </Logo>
-        </Link>
+        <Logo>
+          <a href="/home">
+            <img src={Icon} alt="logo" />
+          </a>
+        </Logo>
+
         <Search>
           <div>
             <input type="text" placeholder="Search" />

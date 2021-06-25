@@ -1,39 +1,55 @@
 import styled from "styled-components";
-import { Link } from "react-router-dom";
 import Logo from "../Icons/mlogo.png";
-const Login = (props) => {
+
+import { auth, provider } from "../firebase/config";
+const Login = ({ setUserIn }) => {
+  const loginWithGoogle = () => {
+    auth.signInWithPopup(provider).then((userData) => {
+      const googleUserData = {
+        name: userData.user.displayName,
+        image: userData.user.photoURL,
+        email: userData.user.email,
+      };
+
+      console.log(googleUserData);
+      localStorage.setItem("googleData", JSON.stringify(googleUserData));
+      localStorage.setItem("pageRedirect", JSON.stringify(true));
+
+      // props.userLogin(true);
+      setUserIn(true);
+    });
+  };
+
   return (
     <Container>
       <Nav>
-        <a href="/">
-          <img src={Logo} alt="" />
-        </a>
-        <div>
+        <div id="linkup-logo">
+          <h2>Link</h2> <img id="linkup" src={Logo} alt="" />
+        </div>
+        <div id="features">
           <Join>Join now</Join>
           <SignIn>Sign in</SignIn>
         </div>
       </Nav>
       <Section>
         <Hero>
-          <h1>Welcome to your Campus Professional Community</h1>
+          <h1>
+            Welcome To Your Campus <span> DEV Community</span>
+          </h1>
           <img src="/images/login-hero.svg" alt="" />
         </Hero>
         <Form>
-          <Link to="/home" style={{ "text-decoration": "none" }}>
-            <Google>
-              <img src="/images/google.svg" alt="" />
-              Sign in with Google
-            </Google>
-          </Link>
+          <Google onClick={loginWithGoogle}>
+            <img src="/images/google.svg" alt="" />
+            Sign in with Google
+          </Google>
         </Form>
       </Section>
     </Container>
   );
 };
 
-const Container = styled.div`
-  padding: 0px;
-`;
+const Container = styled.div``;
 
 const Nav = styled.nav`
   max-width: 1128px;
@@ -45,6 +61,15 @@ const Nav = styled.nav`
   justify-content: space-between;
   flex-wrap: nowrap;
 
+  #linkup-logo {
+    display: flex;
+    h2 {
+      padding-top: 1.5rem;
+      font-size: 2rem;
+      color: #0a66c2;
+    }
+  }
+
   & > a {
     width: 135px;
     height: 34px;
@@ -53,9 +78,18 @@ const Nav = styled.nav`
     }
   }
 
-  img {
+  #linkup {
     width: 100px;
     height: 90px;
+  }
+
+  @media (max-width: 768px) {
+    #features {
+      display: none;
+    }
+    #linkup-logo {
+      padding-left: 1rem;
+    }
   }
 `;
 

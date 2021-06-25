@@ -1,25 +1,22 @@
-import React from 'react'
+import React from "react";
 import styled from "styled-components";
 
+const Userprofile = () => {
+  const userInfo = JSON.parse(localStorage.getItem("googleData"));
 
- const Userprofile = () => {
-    return (
-        <UserProfileContainer>
-            <UserProfile>
-              <img
-                src="https://www.fakepersongenerator.com/Face/male/male1084844306885.jpg"
-                alt="user-profile"
-              />
-            </UserProfile>
-            <UserName>
-              <h3>Aman Gupta</h3>
-            </UserName>
-          </UserProfileContainer>
-    )
-}
+  return (
+    <UserProfileContainer>
+      <UserProfile>
+        <img src={userInfo.image} alt="user-profile" />
+      </UserProfile>
+      <UserName>
+        <h3>{userInfo.name}</h3>
+      </UserName>
+    </UserProfileContainer>
+  );
+};
 
 export default Userprofile;
-
 
 const UserProfileContainer = styled.div`
   width: 100%;

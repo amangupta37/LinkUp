@@ -4,7 +4,7 @@ import Leftside from "./Leftside";
 import Main from "./Main";
 import Rightside from "./Rightside";
 
-const Home = (props) => {
+const Home = ({ setUserIn }) => {
   return (
     <>
       <Container>
@@ -12,7 +12,7 @@ const Home = (props) => {
           <h5>LinkUp : Campus Largest Dev Community Platform </h5>
         </Section>
         <Layout>
-          <Leftside />
+          <Leftside setSignOut={setUserIn} />
           <Main />
           <Rightside />
         </Layout>

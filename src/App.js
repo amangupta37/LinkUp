@@ -1,23 +1,23 @@
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "./App.css";
 import Header from "./components/Header";
 import Home from "./components/Home";
 import Login from "./components/Login";
+import React, { useState } from "react";
 
 function App() {
+  const [userIn, setuserIn] = useState(
+    JSON.parse(localStorage.getItem("pageRedirect"))
+  );
   return (
-    <div className="App">
-      <Router>
-        <Switch>
-          <Route exact path="/">
-            <Login />
-          </Route>
-          <Route path="/home">
-            <Header />
-            <Home />
-          </Route>
-        </Switch>
-      </Router>
+    <div>
+      {userIn ? (
+        <div>
+          <Header setUserIn={setuserIn} />
+          <Home setUserIn={setuserIn} />
+        </div>
+      ) : (
+        <Login setUserIn={setuserIn} />
+      )}
     </div>
   );
 }

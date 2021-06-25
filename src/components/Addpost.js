@@ -13,6 +13,8 @@ const Addpost = () => {
     setshowPostpopup(true);
   };
 
+  const userInfo = JSON.parse(localStorage.getItem("googleData"));
+
   return (
     <>
       {showPostpopup ? (
@@ -24,10 +26,7 @@ const Addpost = () => {
           <FormContainer>
             <UserContainer>
               <Profile>
-                <img
-                  src="https://www.fakepersongenerator.com/Face/female/female20141023841555267.jpg"
-                  alt="user-profile"
-                />
+                <img src={userInfo.image} alt="user-profile" />
               </Profile>
             </UserContainer>
             <InputContainer>

@@ -1,18 +1,33 @@
+import React from "react";
 import styled from "styled-components";
+import { auth } from "../firebase/config";
 
-const Leftside = (props) => {
+const Leftside = ({ setSignOut }) => {
+  const userLogout = () => {
+    auth.signOut().then(() => {
+      // props.logout(false);
+      setSignOut(false);
+      localStorage.clear();
+    });
+  };
+  const userInfo = JSON.parse(localStorage.getItem("googleData"));
+
   return (
     <Container>
       <ArtCard>
         <UserInfo>
           <CardBackground />
-          <a href="/">
-            <Photo />
-            <Link>Welcome, there!</Link>
-          </a>
-          <a href="/">
-            <AddPhotoText>Add a photo</AddPhotoText>
-          </a>
+          <div id="user-profile">
+            <img src={userInfo.image} alt="user-profile" />
+          </div>
+          <div id="user-name">
+            <Link>{userInfo.name} </Link>
+          </div>
+          <div>
+            <AddPhotoText id="signout" onClick={userLogout}>
+              Sign Out
+            </AddPhotoText>
+          </div>
         </UserInfo>
         <Widget>
           <a href="/">
@@ -79,13 +94,34 @@ const UserInfo = styled.div`
   padding: 12px 12px 16px;
   word-wrap: break-word;
   word-break: break-word;
+
+  #user-profile {
+    width: 50%;
+    position: absolute;
+    left: 50%;
+    top: 1rem;
+
+    img {
+      position: relative;
+      left: -50%;
+
+      border-radius: 50%;
+    }
+  }
+  #user-name {
+    margin-top: 2rem;
+  }
+  #signout {
+    font-size: 0.8rem;
+    cursor: pointer;
+  }
 `;
 
 const CardBackground = styled.div`
   background: url("/images/card-bg.svg");
   background-position: center;
   background-size: 462px;
-  height: 54px;
+  height: 94px;
   margin: -12px -12px 0;
 `;
 
