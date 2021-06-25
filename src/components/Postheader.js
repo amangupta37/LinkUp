@@ -1,23 +1,21 @@
-import React from 'react'
+import React from "react";
 import styled from "styled-components";
 import ClearIcon from "@material-ui/icons/Clear";
 
- const Postheader = (props) => {
-
-    const canclePost = () => {
-        props.canclePostpopupo(false);
-      };
-    return (
-        <TitleContainer>
-          <h2>Create a post</h2>
-          <ClearIconContainer>
-            <ClearIcon onClick={canclePost} />
-          </ClearIconContainer>
-        </TitleContainer>
-    )
-}
+const Postheader = (props) => {
+  const canclePost = () => {
+    props.canclePostpopupo(false);
+  };
+  return (
+    <TitleContainer>
+      <h2>Create a post</h2>
+      <ClearIconContainer>
+        <ClearIcon onClick={canclePost} />
+      </ClearIconContainer>
+    </TitleContainer>
+  );
+};
 export default Postheader;
-
 
 const TitleContainer = styled.div`
   width: 100%;

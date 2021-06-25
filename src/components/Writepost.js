@@ -1,14 +1,52 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import Media from "./Media";
 import Userprofile from "./Userprofile";
 import Postheader from "./Postheader";
-const Writepost = (props) => {
+import { projectFirestore, timestamp } from "../firebase/config";
+
+const Writepost = ({ discardPost }) => {
+  const [storeImgLink, setstoreImgLink] = useState(null);
+
+  const [input, setInput] = useState("");
+
+  const userPostInput = (e) => {
+    const postContent = e.target.value;
+    setInput(postContent);
+  };
+
+  const submitPostContent = (e) => {
+    e.preventDefault();
+
+    if (!input) return;
+
+    addPostToFirebase();
+
+    setInput("");
+    setstoreImgLink(null);
+  };
+
+  const addPostToFirebase = () => {
+    const createdPost = timestamp();
+
+    let postDetails = {
+      postcontent: input,
+      postimage: storeImgLink,
+      time: createdPost,
+    };
+
+    console.log(postDetails);
+
+    projectFirestore.collection("post").add(postDetails);
+
+    discardPost(false);
+  };
+
   return (
     <Container>
       <PostContainer>
         <HeaderContainer>
-          <Postheader canclePostpopupo={props.discardPost} />
+          <Postheader canclePostpopupo={discardPost} />
         </HeaderContainer>
         <form>
           <FormContainer>
@@ -18,13 +56,21 @@ const Writepost = (props) => {
                 <textarea
                   type="text"
                   placeholder="What do you want to talk about ?"
+                  value={input}
+                  onChange={userPostInput}
                 />
               </TextAreaContainer>
             </TextContainer>
             <MediaContainer>
-              <Media />
+              <Media setstoreImgLink={setstoreImgLink} />
               <PostItemsContainer>
-                <button>Post</button>
+                <button
+                  type="submit"
+                  onClick={submitPostContent}
+                  disabled={!input}
+                >
+                  Post
+                </button>
               </PostItemsContainer>
             </MediaContainer>
           </FormContainer>
@@ -47,7 +93,6 @@ const PostContainer = styled.div`
   width: 35%;
   margin: 0 auto;
   margin-top: 5rem;
-  // height: 400px;
   background-color: #fff;
   border-radius: 5px;
   position: relative;
@@ -63,13 +108,11 @@ const PostContainer = styled.div`
 `;
 const HeaderContainer = styled.div`
   width: 100%;
-  // background: lime;
 `;
 
 const FormContainer = styled.div`
   width: 100%;
   height: 100%;
-  // background: blue;
   display: grid;
   grid-template-rows: 200px 1fr;
 `;
@@ -79,7 +122,6 @@ const TextContainer = styled.div`
   border-top: 2px solid #3333;
   display: grid;
   grid-template-rows: 80px 1fr;
-  // background: red;
 `;
 
 const TextAreaContainer = styled.div`
@@ -102,12 +144,10 @@ const TextAreaContainer = styled.div`
 
 const PostItemsContainer = styled.div`
   width: 100%;
-  // border-left: 2px solid #3333;
   padding-right: 1rem;
   display: flex;
   flex-direction: row-reverse;
 
-  // background: yellow;
   button {
     width: 100px;
     height: 2rem;
@@ -115,13 +155,15 @@ const PostItemsContainer = styled.div`
     border-radius: 2rem;
     border: none;
     outline: none;
-    background: #3333;
+    background: rgb(10, 102, 194);
+    color: #ffff;
+    font-size: 0.9rem;
   }
 `;
 
 const MediaContainer = styled.div`
   width: 100%;
-  // background: green;
+
   display: flex;
   align-items: flex-end;
 `;
