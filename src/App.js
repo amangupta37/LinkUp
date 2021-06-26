@@ -1,24 +1,22 @@
 import "./App.css";
-import Header from "./components/Header";
-import Home from "./components/Home";
-import Login from "./components/Login";
 import React, { useState } from "react";
-
+import { BrowserRouter as Router, Route } from "react-router-dom";
+import Signin from "./pages/Signin";
+import Job from "./pages/Job";
+import Connections from "./pages/Connections";
 function App() {
-  const [userIn, setuserIn] = useState(
-    JSON.parse(localStorage.getItem("pageRedirect"))
-  );
   return (
-    <div>
-      {userIn ? (
-        <div>
-          <Header setUserIn={setuserIn} />
-          <Home setUserIn={setuserIn} />
-        </div>
-      ) : (
-        <Login setUserIn={setuserIn} />
-      )}
-    </div>
+    <Router>
+      <Route path="/" exact>
+        <Signin />
+      </Route>
+      <Route path="/jobs" exact>
+        <Job />
+      </Route>
+      <Route path="/connections" exact>
+        <Connections />
+      </Route>
+    </Router>
   );
 }
 
