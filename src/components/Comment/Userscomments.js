@@ -1,0 +1,107 @@
+import React from "react";
+import styled from "styled-components";
+const Userscomments = () => {
+  return (
+    <Container>
+      <UserProfileContainer>
+        <ProfileImage>
+          <img
+            src="https://www.fakepersongenerator.com/Face/male/male1085399176728.jpg"
+            alt="user-profile"
+          />
+        </ProfileImage>
+      </UserProfileContainer>
+      <CommentContainer>
+        <Username>
+          <p>Aman Gupta</p>
+        </Username>
+        <UserComment>
+          <p>
+            Eirmod dolore dolores sed amet magna et labore, aliquyam et rebum ea
+            dolor sit, elitr kasd sit justo elitr magna.
+          </p>
+        </UserComment>
+      </CommentContainer>
+    </Container>
+  );
+};
+
+export default Userscomments;
+const Container = styled.div`
+  width: 95%;
+  margin-top: 2rem;
+  height: 100px;
+  display: grid;
+  grid-template-columns: 80px 1fr;
+  @media only screen and (max-width: 600px) {
+    width: 100%;
+
+    grid-template-columns: 50px 1fr;
+    margin-top: 1.3rem;
+  }
+`;
+
+const UserProfileContainer = styled.div`
+  width: 100%;
+
+  //   background: red;
+
+  @media only screen and (max-width: 600px) {
+    width: 95%;
+  }
+`;
+
+const ProfileImage = styled.div`
+  width: 60%;
+  padding-top: 0.5rem;
+  margin-left: 1.2rem;
+
+  img {
+    width: 100%;
+    border-radius: 50%;
+  }
+
+  @media only screen and (max-width: 600px) {
+    width: 80%;
+    margin-left: 0.3rem;
+    padding-top: 0.5rem;
+  }
+`;
+
+const CommentContainer = styled.div`
+  width: 100%;
+  background: #e9e5df;
+  border-radius: 0.3rem;
+  display: grid;
+  grid-template-rows: 30px 1fr;
+`;
+
+const Username = styled.div`
+  width: 100%;
+  //   background: red;
+  p {
+    padding-top: 0.3rem;
+    padding-left: 0.5rem;
+    color: #000;
+    font-size: 1rem;
+    font-weight: 600;
+    font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI",
+      Roboto, "Helvetica Neue", "Fira Sans", Ubuntu, Oxygen, "Oxygen Sans",
+      Cantarell, "Droid Sans", "Apple Color Emoji", "Segoe UI Emoji",
+      "Segoe UI Symbol", "Lucida Grande", Helvetica, Arial, sans-serif;
+  }
+`;
+const UserComment = styled.div`
+  width: 100%;
+  //   background: lime;
+  overflow: hidden;
+
+  p {
+    padding: 0.3rem;
+    padding-top: 0.3rem;
+    padding-left: 0.5rem;
+    color: rgba(0, 0, 0, 0.9);
+    font-size: 0.9rem;
+    font-weight: 400;
+  }
+`;
