@@ -10,9 +10,6 @@ const Main = (props) => {
       <PostContainer>
         <Userpost />
       </PostContainer>
-      <PostContainer>
-        <Userpost />
-      </PostContainer>
     </Container>
   );
 };
@@ -38,11 +35,6 @@ const PostContainer = styled.div`
   box-sizing: border-box;
   width: 100%;
   margin-top: 1rem;
-
-  background-color: #fff;
-  border-radius: 5px;
-  border: none;
-  box-shadow: 0 0 0 1px rgb(0 0 0 / 15%), 0 0 0 rgb(0 0 0 / 20%);
 `;
 
 export default Main;

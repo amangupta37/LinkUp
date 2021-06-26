@@ -7,6 +7,7 @@ import { projectFirestore, timestamp } from "../firebase/config";
 
 const Writepost = ({ discardPost }) => {
   const [storeImgLink, setstoreImgLink] = useState(null);
+  const userInfo = JSON.parse(localStorage.getItem("googleData"));
 
   const [input, setInput] = useState("");
 
@@ -30,6 +31,9 @@ const Writepost = ({ discardPost }) => {
     const createdPost = timestamp();
 
     let postDetails = {
+      username: userInfo.name,
+      usermail: userInfo.email,
+      userprofile: userInfo.image,
       postcontent: input,
       postimage: storeImgLink,
       time: createdPost,

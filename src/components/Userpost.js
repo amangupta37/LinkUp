@@ -1,50 +1,80 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Reaction from "./Reaction";
-
+import { projectFirestore } from "../firebase/config";
 const Userpost = () => {
+  const [messages, setMessage] = useState([]);
+
+  const getMessage = () => {
+    projectFirestore
+      .collection("post")
+      .orderBy("time", "desc")
+      .onSnapshot((snapshot) => {
+        let arr = [];
+        snapshot.docs.map((doc) => arr.push(doc.data()));
+        setMessage(arr);
+      });
+  };
+
+  useEffect(() => {
+    getMessage();
+  }, []);
+
+  console.log(messages);
+
   return (
-    <Container>
-      <UserInfoContainer>
-        <UserContainer>
-          <UserImageContainer>
-            <img
-              src="https://www.fakepersongenerator.com/Face/female/female20141023841555267.jpg"
-              alt="user-img"
-            />
-          </UserImageContainer>
-          <UserDetailsContainer>
-            <h3>Aman Gupta</h3>
-            <p>amangupta@gmail.com</p>
-          </UserDetailsContainer>
-        </UserContainer>
-        <PostInfoContainer>
-          <p>
-            Erat ipsum dolore ea erat kasd rebum vero ipsum gubergren. Ipsum
-            stet dolores eos dolore amet eirmod. Diam diam sit.
-          </p>
-        </PostInfoContainer>
-      </UserInfoContainer>
-      <PostImageContainer>
-        <img
-          src="https://www.royalfoibles.com/wp-content/uploads/2016/04/dummy-post-square-1-1.jpg"
-          alt="user-post"
-        />
-      </PostImageContainer>
-      <FeedContainer>
-        <Reaction />
-      </FeedContainer>
-    </Container>
+    <UserPost>
+      {messages.map((value) => {
+        return (
+          <Container>
+            <UserInfoContainer>
+              <UserContainer>
+                <UserImageContainer>
+                  <img src={value.userprofile} alt="user-img" />
+                </UserImageContainer>
+                <UserDetailsContainer>
+                  <h3>{value.username}</h3>
+                  <p>{value.usermail}</p>
+                </UserDetailsContainer>
+              </UserContainer>
+              <PostInfoContainer>
+                <p>{value.postcontent}</p>
+              </PostInfoContainer>
+            </UserInfoContainer>
+            <PostImageContainer>
+              {value.postimage != null ? (
+                <img src={value.postimage} alt="user-post" />
+              ) : null}
+            </PostImageContainer>
+
+            <FeedContainer>
+              <Reaction />
+            </FeedContainer>
+          </Container>
+        );
+      })}
+    </UserPost>
   );
 };
 
 export default Userpost;
+
+const UserPost = styled.div`
+  // background: red;
+`;
 
 const Container = styled.div`
   width: 100%;
 
   display: grid;
   grid-template-rows: auto auto 100px;
+  // background: lime;
+  background-color: #fff;
+  border-radius: 5px;
+  border: none;
+  margin-top: 1rem;
+
+  box-shadow: 0 0 0 1px rgb(0 0 0 / 15%), 0 0 0 rgb(0 0 0 / 20%);
 `;
 
 const UserInfoContainer = styled.div`
@@ -110,13 +140,18 @@ const PostInfoContainer = styled.div`
 `;
 
 const PostImageContainer = styled.div`
-  width: 100%;
-  // background: green;
+  width: 90%;
+  margin: 0 auto;
   img {
+    width: 100%;
+  }
+  @media only screen and (max-width: 600px) {
     width: 100%;
   }
 `;
 const FeedContainer = styled.div`
   width: 100%;
+
+  // background: red;
   // background: yellow;
 `;
