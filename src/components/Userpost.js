@@ -11,7 +11,10 @@ const Userpost = () => {
       .orderBy("time", "desc")
       .onSnapshot((snapshot) => {
         let arr = [];
-        snapshot.docs.map((doc) => arr.push(doc.data()));
+        snapshot.docs.map((doc) => {
+          console.log(doc.id);
+          return arr.push({ id: doc.id, ...doc.data() });
+        });
         setMessage(arr);
       });
   };
@@ -48,7 +51,7 @@ const Userpost = () => {
             </PostImageContainer>
 
             <FeedContainer>
-              <Reaction />
+              <Reaction postId={value.id} />
             </FeedContainer>
           </Container>
         );

@@ -4,7 +4,7 @@ import { Like } from "../Icons/Like";
 import { Comment } from "../Icons/Comment";
 import { Share } from "../Icons/Share";
 import Addcomment from "./Comment/Addcomment";
-const Reaction = () => {
+const Reaction = ({ postId }) => {
   const [showCommentBox, setshowCommentBox] = useState(false);
 
   const showComment = () => {
@@ -15,7 +15,10 @@ const Reaction = () => {
     <>
       {showCommentBox ? (
         <CommentPops>
-          <Addcomment setshowCommentBox={setshowCommentBox} />
+          <Addcomment
+            setshowCommentBox={setshowCommentBox}
+            userpostId={postId}
+          />
         </CommentPops>
       ) : (
         <Container>

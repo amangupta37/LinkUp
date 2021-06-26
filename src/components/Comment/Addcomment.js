@@ -1,11 +1,60 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import Userscomments from "./Userscomments";
 import ClearIcon from "@material-ui/icons/Clear";
-const Addcomment = ({ setshowCommentBox }) => {
+import { projectFirestore, timestamp } from "../../firebase/config";
+
+const Addcomment = ({ setshowCommentBox, userpostId }) => {
+  const [comment, setComment] = useState("");
+  const userInfo = JSON.parse(localStorage.getItem("googleData"));
+
+  const [countComment, setcountComment] = useState(1);
+
   const closeComment = () => {
     setshowCommentBox(false);
   };
+
+  const CommentContent = (e) => {
+    const userComment = e.target.value;
+
+    setComment(userComment);
+  };
+
+  const submitComment = (e) => {
+    e.preventDefault();
+    if (!comment) return;
+
+    console.log(comment);
+    addCommentToFirebase();
+    setComment("");
+  };
+
+  const addCommentToFirebase = () => {
+    const createdPost = timestamp();
+
+    setcountComment(countComment + 1);
+
+    // console.log(coutComment);
+
+    let postCommentDetails = {
+      username: userInfo.name,
+      userprofile: userInfo.image,
+      usercomment: comment,
+      totalcomment: countComment,
+      timestamp: createdPost,
+    };
+
+    console.log(postCommentDetails);
+
+    projectFirestore
+      .collection("post")
+      .doc(userpostId)
+      .collection("comments")
+      .add(postCommentDetails);
+
+    // setshowCommentBox(false);
+  };
+
   return (
     <Container>
       <CommentContainer>
@@ -14,26 +63,28 @@ const Addcomment = ({ setshowCommentBox }) => {
           <UserCommentInput>
             <UserProfile>
               <ImageContainer>
-                <img
-                  src="https://www.fakepersongenerator.com/Face/male/male1085399176728.jpg"
-                  alt="user-profile"
-                />
+                <img src={userInfo.image} alt="user-profile" />
               </ImageContainer>
             </UserProfile>
             <UserInput>
-              <textarea id="cmt-box" type="text" placeholder="Add a comment" />
+              <textarea
+                id="cmt-box"
+                value={comment}
+                type="text"
+                placeholder="Add a comment"
+                onChange={CommentContent}
+              />
             </UserInput>
           </UserCommentInput>
           <PostComment>
-            <button>Post</button>
+            <button type="submit" onClick={submitComment} disabled={!comment}>
+              Post
+            </button>
           </PostComment>
         </WriteComment>
 
         <ShowComment>
-          <Userscomments />
-          <Userscomments />
-          <Userscomments />
-          <Userscomments />
+          <Userscomments userpostId={userpostId} />
         </ShowComment>
       </CommentContainer>
     </Container>

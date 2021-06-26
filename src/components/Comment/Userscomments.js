@@ -1,28 +1,51 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-const Userscomments = () => {
+import { projectFirestore } from "../../firebase/config";
+
+const Userscomments = ({ userpostId }) => {
+  const [getComment, setgetComment] = useState([]);
+
+  const getPostComments = () => {
+    projectFirestore
+      .collection("post")
+      .doc(userpostId)
+      .collection("comments")
+      .orderBy("timestamp", "desc")
+      .onSnapshot((snapshot) => {
+        let postArr = [];
+
+        snapshot.docs.map((doc) => {
+          return postArr.push(doc.data());
+        });
+        setgetComment(postArr);
+      });
+  };
+  useEffect(() => {
+    getPostComments();
+  }, []);
+
   return (
-    <Container>
-      <UserProfileContainer>
-        <ProfileImage>
-          <img
-            src="https://www.fakepersongenerator.com/Face/male/male1085399176728.jpg"
-            alt="user-profile"
-          />
-        </ProfileImage>
-      </UserProfileContainer>
-      <CommentContainer>
-        <Username>
-          <p>Aman Gupta</p>
-        </Username>
-        <UserComment>
-          <p>
-            Eirmod dolore dolores sed amet magna et labore, aliquyam et rebum ea
-            dolor sit, elitr kasd sit justo elitr magna.
-          </p>
-        </UserComment>
-      </CommentContainer>
-    </Container>
+    <>
+      {getComment.map((usercomment) => {
+        return (
+          <Container>
+            <UserProfileContainer>
+              <ProfileImage>
+                <img src={usercomment.userprofile} alt="user-profile" />
+              </ProfileImage>
+            </UserProfileContainer>
+            <CommentContainer>
+              <Username>
+                <p>{usercomment.username}</p>
+              </Username>
+              <UserComment>
+                <p>{usercomment.usercomment}</p>
+              </UserComment>
+            </CommentContainer>
+          </Container>
+        );
+      })}
+    </>
   );
 };
 
