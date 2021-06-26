@@ -19,7 +19,11 @@ const Progress = ({
 
   return (
     <Container>
-      {url ? <p id="showmsg">Image is attached with this post</p> : null}
+      {url ? (
+        <p id="showmsg">
+          <img src={url} alt="uploaded" />
+        </p>
+      ) : null}
     </Container>
   );
 };
@@ -28,14 +32,20 @@ export default Progress;
 
 const Container = styled.div`
   width: 90%;
+
   position: absolute;
-  top: 15rem;
+  top: 12rem;
   text-align: left;
   #showmsg {
+    width: 30%;
+    height: 100px;
     padding: 0.3rem;
-    border: 1px solid #38b000;
     color: #ffff;
-    background: #38b000;
     border-radius: 0.1rem;
+
+    img {
+      width: 100%;
+      height: 100%;
+    }
   }
 `;
