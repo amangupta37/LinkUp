@@ -1,46 +1,60 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { Like } from "../Icons/Like";
 import { Comment } from "../Icons/Comment";
 import { Share } from "../Icons/Share";
-
+import Addcomment from "./Comment/Addcomment";
 const Reaction = () => {
+  const [showCommentBox, setshowCommentBox] = useState(false);
+
+  const showComment = () => {
+    setshowCommentBox(true);
+  };
+
   return (
-    <Container>
-      <RectionStatsContainer>
-        <LikesStatsContainer>
-          <img
-            src="https://static-exp1.licdn.com/sc/h/d310t2g24pvdy4pt1jkedo4yb"
-            alt="liked"
-          />
-          <img
-            src="https://static-exp1.licdn.com/sc/h/7fx9nkd7mx8avdpqm5hqcbi97"
-            alt="heart"
-          />
-          <img
-            src="https://static-exp1.licdn.com/sc/h/5thsbmikm6a8uov24ygwd914f"
-            alt="clap"
-          />
-          <span>120</span>
-        </LikesStatsContainer>
-      </RectionStatsContainer>
-      <RectionContainer>
-        <HoldReactionContainer>
-          <LikeContainer>
-            <Like />
-            <span>Like</span>
-          </LikeContainer>
-          <CommentContainer>
-            <Comment />
-            <span>Comment</span>
-          </CommentContainer>
-          <ShareContainer>
-            <Share />
-            <span>Share</span>
-          </ShareContainer>
-        </HoldReactionContainer>
-      </RectionContainer>
-    </Container>
+    <>
+      {showCommentBox ? (
+        <CommentPops>
+          <Addcomment setshowCommentBox={setshowCommentBox} />
+        </CommentPops>
+      ) : (
+        <Container>
+          <RectionStatsContainer>
+            <LikesStatsContainer>
+              <img
+                src="https://static-exp1.licdn.com/sc/h/d310t2g24pvdy4pt1jkedo4yb"
+                alt="liked"
+              />
+              <img
+                src="https://static-exp1.licdn.com/sc/h/7fx9nkd7mx8avdpqm5hqcbi97"
+                alt="heart"
+              />
+              <img
+                src="https://static-exp1.licdn.com/sc/h/5thsbmikm6a8uov24ygwd914f"
+                alt="clap"
+              />
+              <span>120</span>
+            </LikesStatsContainer>
+          </RectionStatsContainer>
+          <RectionContainer>
+            <HoldReactionContainer>
+              <LikeContainer>
+                <Like />
+                <span>Like</span>
+              </LikeContainer>
+              <CommentContainer onClick={showComment}>
+                <Comment />
+                <span>Comment</span>
+              </CommentContainer>
+              <ShareContainer>
+                <Share />
+                <span>Share</span>
+              </ShareContainer>
+            </HoldReactionContainer>
+          </RectionContainer>
+        </Container>
+      )}
+    </>
   );
 };
 
@@ -165,4 +179,13 @@ const ShareContainer = styled.div`
       font-size: 0.9rem;
     }
   }
+`;
+
+const CommentPops = styled.div`
+  width: 100%;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 10000;
 `;
