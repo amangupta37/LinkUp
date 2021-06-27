@@ -5,6 +5,7 @@ const Job = () => {
   return (
     <div>
       <Header />
+
       <Jobupdates />
     </div>
   );

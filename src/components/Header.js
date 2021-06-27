@@ -34,7 +34,7 @@ const Header = (props) => {
             <NavList>
               <div>
                 <NavLink
-                  to="/connections"
+                  to="/network"
                   style={{ textDecoration: "none" }}
                   activeClassName="active"
                 >
@@ -70,14 +70,6 @@ const Header = (props) => {
                 <span>Notifications</span>
               </div>
             </NavList>
-
-            <User>
-              <div>
-                <img src="/images/user.svg" alt="" />
-                <span>Me</span>
-                <img src="/images/down-icon.svg" alt="" />
-              </div>
-            </User>
 
             <Work>
               <div>

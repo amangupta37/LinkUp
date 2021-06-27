@@ -73,8 +73,8 @@ const Container = styled.div`
 const JobPostContainer = styled.div`
   width: 50%;
   margin: 0 auto;
-  background: hsla(0, 0%, 100%, 0.9);
-  border-color: #dce6f1;
+  background: #eef3f1;
+
   border-radius: 0.3rem;
   padding: 0.8rem;
   height: 80vh;
@@ -91,9 +91,12 @@ const JobPostContainer = styled.div`
 const JobPostCard = styled.div`
   width: 80%;
   margin-top: 1rem;
-  height: 150px;
-  background: #eef3f1;
+  height: auto;
+  background: hsla(0, 0%, 100%, 0.9);
+  border: 2px solid rgba(0, 0, 0, 0.1);
   border-radius: 0.3rem;
+  padding: 0.8rem;
+
   @media (max-width: 768px) {
     width: 100%;
     height: auto;
@@ -115,8 +118,8 @@ const JobIcon = styled.div`
   }
   @media (max-width: 768px) {
     width: 50%;
-    margin-right: 0.9rem;
-    margin-top: 2rem;
+    margin-right: 1.5rem;
+    margin-top: 1rem;
   }
 `;
 
@@ -179,7 +182,7 @@ const ActiveDetailsContainer = styled.div`
   }
 `;
 const JobinfoContainer = styled.div`
-  width: 100%;
+  width: 80%;
 `;
 
 const ButtonContainer = styled.div`
@@ -195,6 +198,7 @@ const ButtonContainer = styled.div`
     color: #fff;
     font-size: 0.8rem;
     cursor: pointer;
+    border-radius: 0.2rem;
   }
   @media (max-width: 768px) {
     width: 40%;

@@ -5,7 +5,6 @@ import { auth } from "../firebase/config";
 const Leftside = ({ setSignOut }) => {
   const userLogout = () => {
     auth.signOut().then(() => {
-      // props.logout(false);
       setSignOut(false);
       localStorage.clear();
     });
@@ -123,22 +122,6 @@ const CardBackground = styled.div`
   background-size: 462px;
   height: 94px;
   margin: -12px -12px 0;
-`;
-
-const Photo = styled.div`
-  box-shadow: none;
-  background-image: url("/images/photo.svg");
-  width: 72px;
-  height: 72px;
-  box-sizing: border-box;
-  background-clip: content-box;
-  background-color: white;
-  background-position: center;
-  background-size: 60%;
-  background-repeat: no-repeat;
-  border: 2px solid white;
-  margin: -38px auto 12px;
-  border-radius: 50%;
 `;
 
 const Link = styled.div`

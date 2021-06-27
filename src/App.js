@@ -1,5 +1,5 @@
 import "./App.css";
-import React, { useState } from "react";
+import React from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import Signin from "./pages/Signin";
 import Job from "./pages/Job";
@@ -13,7 +13,7 @@ function App() {
       <Route path="/jobs" exact>
         <Job />
       </Route>
-      <Route path="/connections" exact>
+      <Route path="/network" exact>
         <Connections />
       </Route>
     </Router>
