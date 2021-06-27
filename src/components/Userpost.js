@@ -48,6 +48,18 @@ const Userpost = () => {
               {value.postimage != null ? (
                 <img src={value.postimage} alt="user-post" />
               ) : null}
+
+              {value.youtubelink != null ? (
+                <iframe
+                  width="100%"
+                  height="315"
+                  src={value.youtubelink}
+                  title="YouTube video player"
+                  frameborder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowfullscreen
+                ></iframe>
+              ) : null}
             </PostImageContainer>
 
             <FeedContainer>

@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import Icon from "../Icons/mlogo.png";
+import { NavLink } from "react-router-dom";
 const Header = (props) => {
   return (
     <Container>
@@ -21,24 +22,38 @@ const Header = (props) => {
         </Search>
         <Nav>
           <NavListWrap>
-            <NavList className="active">
+            <NavList>
               <div>
-                <img src="/images/nav-home.svg" alt="" />
-                <span>Home</span>
+                <NavLink to="/" style={{ textDecoration: "none" }}>
+                  <img src="/images/nav-home.svg" alt="" />
+                  <span>Home</span>
+                </NavLink>
               </div>
             </NavList>
 
             <NavList>
               <div>
-                <img src="/images/nav-network.svg" alt="" />
-                <span>My Network</span>
+                <NavLink
+                  to="/connections"
+                  style={{ textDecoration: "none" }}
+                  activeClassName="active"
+                >
+                  <img src="/images/nav-network.svg" alt="" />
+                  <span>My Network</span>
+                </NavLink>
               </div>
             </NavList>
 
             <NavList>
               <div>
-                <img src="/images/nav-jobs.svg" alt="" />
-                <span>Jobs</span>
+                <NavLink
+                  to="/jobs"
+                  style={{ textDecoration: "none" }}
+                  activeClassName="active"
+                >
+                  <img src="/images/nav-jobs.svg" alt="" />
+                  <span>Jobs</span>
+                </NavLink>
               </div>
             </NavList>
 
@@ -165,6 +180,7 @@ const NavListWrap = styled.ul`
   display: flex;
   flex-wrap: nowrap;
   list-style-type: none;
+  text-decoration: none;
 
   .active {
     span:after {
@@ -176,7 +192,8 @@ const NavListWrap = styled.ul`
       position: absolute;
       transition: transform 0.2s ease-in-out;
       width: 100%;
-      border-color: rgba(0, 0, 0, 0.9);
+      // border-color: rgba(0, 0, 0, 0.9);
+      color: red;
     }
   }
 

@@ -7,6 +7,8 @@ import { projectFirestore, timestamp } from "../firebase/config";
 
 const Writepost = ({ discardPost }) => {
   const [storeImgLink, setstoreImgLink] = useState(null);
+  const [storeYoutubeLink, setstoreYoutubeLink] = useState(null);
+
   const userInfo = JSON.parse(localStorage.getItem("googleData"));
 
   const [input, setInput] = useState("");
@@ -25,6 +27,7 @@ const Writepost = ({ discardPost }) => {
 
     setInput("");
     setstoreImgLink(null);
+    setstoreYoutubeLink(null);
   };
 
   const addPostToFirebase = () => {
@@ -36,6 +39,7 @@ const Writepost = ({ discardPost }) => {
       userprofile: userInfo.image,
       postcontent: input,
       postimage: storeImgLink,
+      youtubelink: storeYoutubeLink,
       time: createdPost,
     };
 
@@ -66,7 +70,10 @@ const Writepost = ({ discardPost }) => {
               </TextAreaContainer>
             </TextContainer>
             <MediaContainer>
-              <Media setstoreImgLink={setstoreImgLink} />
+              <Media
+                setstoreImgLink={setstoreImgLink}
+                setstoreYoutubeLink={setstoreYoutubeLink}
+              />
               <PostItemsContainer>
                 <button
                   type="submit"

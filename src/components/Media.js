@@ -4,14 +4,14 @@ import ImageIcon from "@material-ui/icons/Image";
 import YouTubeIcon from "@material-ui/icons/YouTube";
 import ClearIcon from "@material-ui/icons/Clear";
 import Progress from "./Progress";
-const Media = ({ setstoreImgLink }) => {
+const Media = ({ setstoreImgLink, setstoreYoutubeLink }) => {
   const [localImgurl, setlocalImgurl] = useState(null);
   const [error, setError] = useState(null);
   const [showImagePath, setshowImagePath] = useState(false);
   const [youtubeLink, setyoutubeLink] = useState(false);
   const [closeAll, setcloseAll] = useState(false);
   const [hostedImgLink, sethostedImgLink] = useState(null);
-
+  const [embededYoutubeLink, setembededYoutubeLink] = useState("");
   const types = ["image/png", "image/jpeg"];
 
   if (hostedImgLink !== null) {
@@ -53,11 +53,27 @@ const Media = ({ setstoreImgLink }) => {
     setcloseAll(false);
   };
 
+  const getYoutubeLink = (e) => {
+    const userInput = e.target.value;
+
+    setembededYoutubeLink(userInput);
+  };
+
+  if (embededYoutubeLink !== "") {
+    setstoreYoutubeLink(embededYoutubeLink);
+  }
+
   return (
     <MediaContainer>
       <DisplayMediaContainer>
         {youtubeLink ? (
-          <input type="text" placeholder="Enter Youtube Link" />
+          <input
+            id="youtubeLink"
+            type="text"
+            value={embededYoutubeLink}
+            placeholder="Enter embeded YouTube video link"
+            onChange={getYoutubeLink}
+          />
         ) : null}
 
         {showImagePath ? (
@@ -87,6 +103,7 @@ const Media = ({ setstoreImgLink }) => {
           sethostedImgLink={sethostedImgLink}
           setshowImagePath={setshowImagePath}
           setcloseAll={setcloseAll}
+          embededYoutubeLink={embededYoutubeLink}
         />
       )}
     </MediaContainer>
@@ -138,6 +155,10 @@ const DisplayMediaContainer = styled.div`
       top: 0;
       margin-left: rem;
       margin-top: 0.5rem;
+    }
+
+    #youtubeLink {
+      font-size: 0.7rem;
     }
   }
 `;
