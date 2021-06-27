@@ -1,9 +1,11 @@
 import React from "react";
-
+import Header from "../components/Header";
+import Jobupdates from "../components/JobUpdates/Jobupdates";
 const Job = () => {
   return (
     <div>
-      <h1>hey Job</h1>
+      <Header />
+      <Jobupdates />
     </div>
   );
 };

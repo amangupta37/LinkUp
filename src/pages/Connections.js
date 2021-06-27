@@ -1,9 +1,10 @@
 import React from "react";
+import Header from "../components/Header";
 
 const Connections = () => {
   return (
     <div>
-      <h1>This is connections</h1>
+      <Header />
     </div>
   );
 };
