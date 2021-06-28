@@ -1,33 +1,75 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
+
+import { projectFirestore } from "../../firebase/config";
+
 const Network = () => {
+  const [messages, setMessage] = useState([]);
+
+  const getMessage = () => {
+    projectFirestore
+      .collection("post")
+      .get()
+      .then((snapshot) => {
+        let arr = [];
+        snapshot.docs.map((doc) => {
+          return arr.push(doc.data());
+        });
+
+        setMessage(arr);
+      });
+  };
+
+  useEffect(() => {
+    getMessage();
+  }, []);
+
+  const obj = [
+    ...new Map(
+      messages.map((item) => [JSON.stringify(item.usermail), item.usermail])
+    ).values(),
+  ];
+
+  console.log(obj);
+  obj.map((val) => {
+    return console.log(val);
+  });
+
+  const userInfo = JSON.parse(localStorage.getItem("googleData"));
+
   return (
     <Container>
       <HeaderContainer>People you may know</HeaderContainer>
       <NetworkContainer>
-        <NetworkCardContainer>
-          <UserProfileContainer>
-            <ProfileContainer>
-              <ProfileImg>
-                <img
-                  src="https://www.fakepersongenerator.com/Face/male/male1084987432465.jpg"
-                  alt=""
-                />
-              </ProfileImg>
-            </ProfileContainer>
-            <ProfileImgContainer>
-              <p>Aman Gupta</p>
-            </ProfileImgContainer>
-          </UserProfileContainer>
-          <UserInfoContainer>
-            <Info>
-              <p>amangupta@gmail.com</p>
-            </Info>
-            <CoonectContainer>
-              <button>Connect</button>
-            </CoonectContainer>
-          </UserInfoContainer>
-        </NetworkCardContainer>
+        {messages.map((value) => {
+          return (
+            <>
+              {value.usermail !== userInfo.email ? (
+                <NetworkCardContainer>
+                  <UserProfileContainer>
+                    <ProfileContainer>
+                      <ProfileImg>
+                        <img src={value.userprofile} alt="" />
+                      </ProfileImg>
+                      )
+                    </ProfileContainer>
+                    <ProfileImgContainer>
+                      <p>{value.username}</p>
+                    </ProfileImgContainer>
+                  </UserProfileContainer>
+                  <UserInfoContainer>
+                    <Info>
+                      <p>{value.usermail}</p>
+                    </Info>
+                    <CoonectContainer>
+                      <button>Connect</button>
+                    </CoonectContainer>
+                  </UserInfoContainer>
+                </NetworkCardContainer>
+              ) : null}
+            </>
+          );
+        })}
       </NetworkContainer>
     </Container>
   );
@@ -130,7 +172,7 @@ const UserInfoContainer = styled.div`
 const Info = styled.div`
   width: 100%;
   margin: 0 auto;
-  padding-top: 0.5rem;
+  padding-top: 1.5rem;
   font-size: 0.8rem;
   text-align: center;
 `;

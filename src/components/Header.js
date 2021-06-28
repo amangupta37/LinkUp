@@ -7,9 +7,9 @@ const Header = (props) => {
     <Container>
       <Content>
         <Logo>
-          <a href="/home">
+          <NavLink to="/">
             <img src={Icon} alt="logo" />
-          </a>
+          </NavLink>
         </Logo>
 
         <Search>

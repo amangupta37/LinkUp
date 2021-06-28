@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import Jobicon from "../../Icons/jobup.png";
+import Preloader from "../../Icons/barpre.gif";
+
 const Jobupdates = () => {
   const [storeJobInfo, setStoreJobInfo] = useState([]);
+  const [loading, setloading] = useState(true);
 
   useEffect(() => {
     fetch("https://remotive.io/api/remote-jobs?category=software-dev")
@@ -11,8 +14,19 @@ const Jobupdates = () => {
       })
       .then((data) => {
         setStoreJobInfo(data.jobs);
+        setloading(false);
       });
   }, []);
+
+  if (loading) {
+    return (
+      <PreloaderContainer>
+        <PreloaderUpdate>
+          <img src={Preloader} alt="gif" id="style-preloader" />
+        </PreloaderUpdate>
+      </PreloaderContainer>
+    );
+  }
 
   return (
     <Container>
@@ -68,6 +82,7 @@ const Container = styled.div`
   @media (max-width: 768px) {
     height: 90vh;
   }
+  z-index: 100;
 `;
 
 const JobPostContainer = styled.div`
@@ -206,6 +221,34 @@ const ButtonContainer = styled.div`
 
     button {
       font-size: 0.7rem;
+    }
+  }
+`;
+
+const PreloaderContainer = styled.div`
+  width: 100%;
+  margin: 0 auto;
+  background: #ffff;
+  height: 100vh;
+  z-index: 10000;
+  display: grid;
+  place-items: center;
+`;
+
+const PreloaderUpdate = styled.div`
+  width: 20%;
+  margin-top: 2rem;
+  display: grid;
+  place-items: center;
+
+  img {
+    width: 50%;
+  }
+
+  @media (max-width: 768px) {
+    width: 50%;
+    img {
+      width: 50%;
     }
   }
 `;

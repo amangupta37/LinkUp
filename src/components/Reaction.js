@@ -101,7 +101,6 @@ const RectionContainer = styled.div`
   margin: 0 auto;
   margin-top: 0.4rem;
 
-  //   background: green;
   border-top: 2px solid #3333;
 `;
 
@@ -131,6 +130,10 @@ const LikeContainer = styled.div`
     padding-top: 0.2rem;
     font-size: 1.3rem;
   }
+
+  
+  
+ 
   @media only screen and (max-width: 600px) {
     
     width:100%

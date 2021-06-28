@@ -40,6 +40,13 @@ const Userscomments = ({ userpostId }) => {
               </Username>
               <UserComment>
                 <p>{usercomment.usercomment}</p>
+
+                {usercomment.timestamp !== null ? (
+                  <p id="time">
+                    {usercomment.timestamp.toDate().toDateString() + " "} @{" "}
+                    {usercomment.timestamp.toDate().toLocaleTimeString()}
+                  </p>
+                ) : null}
               </UserComment>
             </CommentContainer>
           </Container>
@@ -93,7 +100,7 @@ const ProfileImage = styled.div`
 
 const CommentContainer = styled.div`
   width: 100%;
-  background: #e9e5df;
+  background: #eef3f1;
   border-radius: 0.3rem;
   display: grid;
   grid-template-rows: 30px 1fr;
@@ -126,5 +133,11 @@ const UserComment = styled.div`
     color: rgba(0, 0, 0, 0.9);
     font-size: 0.9rem;
     font-weight: 400;
+  }
+
+  #time {
+    margin-top: 1rem;
+    color: #333;
+    font-size: 0.7rem;
   }
 `;

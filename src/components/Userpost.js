@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Reaction from "./Reaction";
 import { projectFirestore } from "../firebase/config";
+
 const Userpost = () => {
   const [messages, setMessage] = useState([]);
 
@@ -12,7 +13,6 @@ const Userpost = () => {
       .onSnapshot((snapshot) => {
         let arr = [];
         snapshot.docs.map((doc) => {
-          console.log(doc.id);
           return arr.push({ id: doc.id, ...doc.data() });
         });
         setMessage(arr);
@@ -38,6 +38,9 @@ const Userpost = () => {
                 <UserDetailsContainer>
                   <h3>{value.username}</h3>
                   <p>{value.usermail}</p>
+                  {value.time !== null ? (
+                    <p id="date">{value.time.toDate().toDateString()}</p>
+                  ) : null}
                 </UserDetailsContainer>
               </UserContainer>
               <PostInfoContainer>
@@ -132,6 +135,10 @@ const UserDetailsContainer = styled.div`
   padding-top: 0.5rem;
   padding-left: 1rem;
   font-size: 0.9rem;
+
+  #date {
+    margin-top: 0.5rem;
+  }
   @media only screen and (max-width: 600px) {
     padding-left: 0.1rem;
     padding-top: 0.9rem;

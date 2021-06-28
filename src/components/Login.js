@@ -1,3 +1,5 @@
+import React from "react";
+
 import styled from "styled-components";
 import Logo from "../Icons/mlogo.png";
 
@@ -6,6 +8,7 @@ const Login = ({ setUserIn }) => {
   const loginWithGoogle = () => {
     auth.signInWithPopup(provider).then((userData) => {
       const googleUserData = {
+        mark: 1,
         name: userData.user.displayName,
         image: userData.user.photoURL,
         email: userData.user.email,
@@ -16,6 +19,7 @@ const Login = ({ setUserIn }) => {
       localStorage.setItem("pageRedirect", JSON.stringify(true));
 
       // props.userLogin(true);
+
       setUserIn(true);
     });
   };
