@@ -22,7 +22,7 @@ const Userscomments = ({ userpostId }) => {
   };
   useEffect(() => {
     getPostComments();
-  }, []);
+  });
 
   return (
     <>
